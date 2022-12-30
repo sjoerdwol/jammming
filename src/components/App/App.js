@@ -12,6 +12,12 @@ import { SearchResults } from '../SearchResults/SearchResults';
         {name: 'Tanya', artist: 'Fred again', album: 'Fred 3', id: 1}, 
         {name: 'Lights out', artist: 'Fred again', album: 'Fred 2', id: 2}, 
         {name: 'Kenya', artist: 'Fred again', album: 'Fred 3', id: 3}
+      ],
+      playlistName: 'New Playlist',
+      playlistTracks: [
+        {name: 'Africa', artist: 'Toto', album: 'Africa', id: 4}, 
+        {name: 'Hotel California', artist: 'The Eagles', album: 'HC', id: 5}, 
+        {name: 'Bananenbrot', artist: 'Theo', album: 'THEEEEOO', id: 6}
       ]
     }
   }
@@ -24,7 +30,7 @@ import { SearchResults } from '../SearchResults/SearchResults';
           <SearchBar />
           <div className='App-playlist'>
             <SearchResults searchResults={this.state.searchResults} />
-            <Playlist />
+            <Playlist plName={this.state.playlistName} plTracks={this.state.playlistTracks} />
           </div>
         </div>
       </div>
