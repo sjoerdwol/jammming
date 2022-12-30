@@ -7,6 +7,7 @@ import { SearchResults } from '../SearchResults/SearchResults';
  export class App extends React.Component {
   constructor(props) {
     super(props)
+    this.addTrack = this.addTrack.bind(this);
     this.state = {
       searchResults: [
         {name: 'Tanya', artist: 'Fred again', album: 'Fred 3', id: 1}, 
@@ -21,6 +22,16 @@ import { SearchResults } from '../SearchResults/SearchResults';
       ]
     }
   }
+
+  addTrack(track) {
+    if(this.state.playlistTracks.find(plTrack => plTrack.id === track.id)) {
+      return;
+    }
+
+    const newPlaylist = this.state.playlistTracks;
+    newPlaylist.push(track);
+    this.setState({ newPlaylist });
+  }
   
   render() {
     return (
@@ -29,7 +40,7 @@ import { SearchResults } from '../SearchResults/SearchResults';
         <div className='App'>
           <SearchBar />
           <div className='App-playlist'>
-            <SearchResults searchResults={this.state.searchResults} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
             <Playlist plName={this.state.playlistName} plTracks={this.state.playlistTracks} />
           </div>
         </div>
