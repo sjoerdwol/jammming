@@ -52,6 +52,14 @@ import Spotify from '../../util/Spotify';
 
   search(term) {
     Spotify.search(term).then(searchResults => {
+
+      // filter results for tracks which are already in the playlist
+      const playlistTrackIDs = this.state.playlistTracks.map(track => track.id);
+      console.log(playlistTrackIDs);
+      playlistTrackIDs.forEach(id => {
+        searchResults = searchResults.filter(track => track.id !== id);
+      });
+
       this.setState({ searchResults: searchResults });
     });
   }
