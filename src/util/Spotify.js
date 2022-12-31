@@ -2,7 +2,7 @@ let accessToken;
 const clientID = '2179bde57822462c99310f6c8f06fab5';
 const redirectURI = 'http://localhost:3000/';
 
-class Spotify {
+const Spotify = {
   getAccessToken() {
     if(accessToken) {
       return accessToken;
@@ -26,7 +26,7 @@ class Spotify {
       const accessURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
       window.location = accessURL;
     }
-  }
+  },
 
   search(term) {
     //get access token from own method
@@ -54,6 +54,43 @@ class Spotify {
                 uri: track.uri
             }));
           });
+  },
+
+  savePlaylist(name, trackURIs) {
+    if(!name || !trackURIs.length) {
+      return;
+    }
+
+    const accessToken = Spotify.getAccessToken();
+    const headers = { Authorization: `Bearer ${accessToken}` };
+    let userID;
+
+    // get userID
+    return fetch('https://api.spotify.com/v1/me', { headers: headers })
+    .then(response => response.json())
+    .then(jsonResponse => {
+      userID = jsonResponse.id;
+      // create a new playlist using the just fetched user id
+      return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, 
+        {
+          headers: headers,
+          method: 'POST',
+          body: JSON.stringify({ name: name })
+        }
+      )
+      .then(response => response.json())
+      .then(jsonResponse => {
+        const playlistID = jsonResponse.id;
+        // fill the new playlist using the new playlist id
+        return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`,
+          {
+            headers: headers,
+            method: 'POST',
+            body: JSON.stringify({ uris: trackURIs })
+          }
+        )
+      });
+    });
   }
 }
 

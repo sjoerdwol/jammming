@@ -16,17 +16,9 @@ import Spotify from '../../util/Spotify';
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
     this.state = {
-      searchResults: [
-        {name: 'Tanya', artist: 'Fred again', album: 'Fred 3', id: 1}, 
-        {name: 'Lights out', artist: 'Fred again', album: 'Fred 2', id: 2}, 
-        {name: 'Kenya', artist: 'Fred again', album: 'Fred 3', id: 3}
-      ],
-      playlistName: 'New Playlist',
-      playlistTracks: [
-        {name: 'Africa', artist: 'Toto', album: 'Africa', id: 4}, 
-        {name: 'Hotel California', artist: 'The Eagles', album: 'HC', id: 5}, 
-        {name: 'Bananenbrot', artist: 'Theo', album: 'THEEEEOO', id: 6}
-      ]
+      searchResults: [],
+      playlistName: '',
+      playlistTracks: []
     }
   }
 
@@ -51,6 +43,11 @@ import Spotify from '../../util/Spotify';
 
   savePlaylist() {
     const trackURIs = this.state.playlistTracks.map(track => track.uri);
+    Spotify.savePlaylist(this.state.playlistName, trackURIs);
+    this.setState({
+      playlistName: '',
+      playlistTracks: []
+    });
   }
 
   search(term) {
