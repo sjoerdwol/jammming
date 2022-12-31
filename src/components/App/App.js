@@ -8,6 +8,7 @@ import { SearchResults } from '../SearchResults/SearchResults';
   constructor(props) {
     super(props)
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
     this.state = {
       searchResults: [
         {name: 'Tanya', artist: 'Fred again', album: 'Fred 3', id: 1}, 
@@ -30,7 +31,12 @@ import { SearchResults } from '../SearchResults/SearchResults';
 
     const newPlaylist = this.state.playlistTracks;
     newPlaylist.push(track);
-    this.setState({ newPlaylist });
+    this.setState({ playlistTracks: newPlaylist });
+  }
+
+  removeTrack(track) {
+    const newPlaylist = this.state.playlistTracks.filter(plTrack => {return plTrack.id !== track.id});
+    this.setState({ playlistTracks: newPlaylist });
   }
   
   render() {
@@ -41,7 +47,7 @@ import { SearchResults } from '../SearchResults/SearchResults';
           <SearchBar />
           <div className='App-playlist'>
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
-            <Playlist plName={this.state.playlistName} plTracks={this.state.playlistTracks} />
+            <Playlist plName={this.state.playlistName} plTracks={this.state.playlistTracks} onRemove={this.removeTrack} />
           </div>
         </div>
       </div>
