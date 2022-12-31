@@ -11,6 +11,7 @@ import { SearchResults } from '../SearchResults/SearchResults';
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
     this.state = {
       searchResults: [
         {name: 'Tanya', artist: 'Fred again', album: 'Fred 3', id: 1}, 
@@ -46,7 +47,11 @@ import { SearchResults } from '../SearchResults/SearchResults';
   }
 
   savePlaylist() {
-    const trackURIs = this.state.playlistTracks.map(track => {return track.uri});
+    const trackURIs = this.state.playlistTracks.map(track => track.uri);
+  }
+
+  search(term) {
+    console.log(term);
   }
   
   render() {
@@ -54,7 +59,7 @@ import { SearchResults } from '../SearchResults/SearchResults';
       <div>
         <h1>Ja<span className='highlight'>mmm</span>ing</h1>
         <div className='App'>
-          <SearchBar />
+          <SearchBar onSearch={this.search} />
           <div className='App-playlist'>
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
             <Playlist 
