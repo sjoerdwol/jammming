@@ -27,6 +27,34 @@ class Spotify {
       window.location = accessURL;
     }
   }
+
+  search(term) {
+    //get access token from own method
+    const accessToken = Spotify.getAccessToken();
+
+    //fetch the search results using the term
+    return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          }).then(response => {
+            return response.json();
+          }).then(jsonResponse => {
+            //if there are no matching tracks, return an empty array
+            if(!jsonResponse.tracks) {
+              return [];
+            }
+
+            //if there are matching tracks, return an array of all tracks as objects with the following keys
+            return jsonResponse.tracks.items.map(track => ({
+                id: track.id,
+                name: track.name,
+                album: track.album.name, 
+                artist: track.artists[0].name,
+                uri: track.uri
+            }));
+          });
+  }
 }
 
 export default Spotify;
