@@ -40,7 +40,7 @@
 <!-- ABOUT THE PROJECT -->
 ### Built With
 
-* [![React][React.js]][React-url]
+[![React][React.js]][React-url]
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
