@@ -37,11 +37,36 @@
 
 ---
 
+
+
+### Preview
+tbc...
+
+
+
 <!-- ABOUT THE PROJECT -->
 ### Built With
 
-[![React][React.js]][React-url]
+* [![React][React.js]][React-url]
 
+
+
+<!-- GETTING STARTED -->
+### Local Installation
+
+1. Get a free API Key at [https://developer.spotify.com/](https://developer.spotify.com/)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/sjoerdwol/jammming.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Enter your API in `.env`
+   ```js
+   REACT_APP_SPOTIFY_CLIENT = 'ENTER YOUR API';
+   ```
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/sjoerdwol/jammming.svg?style=for-the-badge
